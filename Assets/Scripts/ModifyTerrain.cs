@@ -5,9 +5,11 @@ public class ModifyTerrain : MonoBehaviour
     public static ModifyTerrain instance;
     public World world;
 
+    byte textureHashCode;
     void Start()
     {
         instance = this;
+        textureHashCode = 1;
     }
 
     void Update()
@@ -19,10 +21,22 @@ public class ModifyTerrain : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            AddBlock(1000f, (byte)textureType.ice.GetHashCode());
+            // AddBlock(1000f, (byte)textureType.ice.GetHashCode());
+            AddBlock(1000f, textureHashCode);
         }
 
-
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            textureHashCode = 1;    // Grass
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            textureHashCode = 2;    // Rock
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            textureHashCode = 3;    // Ice
+        }
     }
 
     public void DestroyBlock(float range, byte block)
@@ -154,4 +168,5 @@ public class ModifyTerrain : MonoBehaviour
             }
         }
     }
+
 }
