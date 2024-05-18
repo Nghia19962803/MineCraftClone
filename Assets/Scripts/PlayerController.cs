@@ -14,16 +14,17 @@ public class PlayerController : MonoBehaviour
         Physics.gravity = Vector3.zero;
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        Move();
+    }
+
+    public void Move()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 aaa = horizontal * m_camera.right;
-        Vector3 bbb = vertical * m_camera.forward;
-        Vector3 dir = (aaa + bbb).normalized;
+        Vector3 dir = (horizontal * m_camera.right + vertical * m_camera.forward).normalized;
         Vector3 m_input = new Vector3(horizontal, 0, vertical).normalized;
-        // Vector3 direction = m_camera.forward;
         if (m_input.magnitude >= 0.1f)
         {
             controller.Move(dir * speed * Time.deltaTime);

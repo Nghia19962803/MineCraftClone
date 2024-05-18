@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Noise;
 
+
+public enum textureType
+{
+    air, grass, rock, ice
+}
 public class World : MonoBehaviour
 {
     [SerializeField] int worldX = 128;	// size world
@@ -21,18 +26,27 @@ public class World : MonoBehaviour
         for (int x = 0; x < worldX; x++)
         {
 			for (int z = 0; z < worldZ; z++)
-            {				
-				int rock = PerlinNoise(x,0,z,10,3f,1.2f);
-				rock += PerlinNoise(x,200,z,20,8f,0f)+10;
-				int grass = PerlinNoise(x,100,z,50,30f,0f)+1;
-				for (int y = 0; y < worldY; y++)
+            {
+				int rock = PerlinNoise(x, 0, z, 10, 3f, 1.2f);
+
+					rock += PerlinNoise(x, 200, z, 20, 8f, 0f) + 10;
+				int grass = PerlinNoise(x, 100, z, 50, 30f, 0f) + 1;
+                int ice = PerlinNoise(x, 101, z, 21, 20, 0f) + 2;
+                for (int y = 0; y < worldY; y++)
                 {
-					if(y <= rock){
+					if(y <= rock)
+					{
 						worldData[x,y,z] = (byte)textureType.grass.GetHashCode();
-					} else if(y <= grass){
-						worldData[x,y,z] = (byte)textureType.rock.GetHashCode();
+					} 
+					else if(y <= grass)
+					{
+						worldData[x,y,z] = (byte)textureType.ice.GetHashCode();
 					}
-				}
+                    else if (y <= ice)
+                    {
+                        worldData[x, y, z] = (byte)textureType.rock.GetHashCode();
+                    }
+                }
 			}
 		}
         Chunks = new Chunk[Mathf.FloorToInt(worldX/chunkSize), Mathf.FloorToInt(worldY/chunkSize), Mathf.FloorToInt(worldZ/chunkSize)];
