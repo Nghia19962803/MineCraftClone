@@ -13,11 +13,18 @@ public class MainSceneUIMgr : MonoBehaviour
     [SerializeField] Button confirmWatchAdBtn;
     [SerializeField] Button watchAdBtn;
 
+    [Header("CONTROLLER")]
+    [SerializeField] Button AddBlock;
+    [SerializeField] Button removeBlock;
+
     void Start()
     {
         confirmWatchAdBtn.onClick.AddListener(OnClickConfirmWatch);
         watchAdBtn.onClick.AddListener(OnClickReward);
         amountCoin = 0;
+
+        AddBlock.onClick.AddListener(MainSceneMgr.Instance.AddBlock);
+        removeBlock.onClick.AddListener(MainSceneMgr.Instance.RemoveBlock);
     }
 
     public void OnClickReward()

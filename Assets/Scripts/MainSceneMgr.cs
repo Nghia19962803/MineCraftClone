@@ -11,12 +11,14 @@ public class MainSceneMgr : MonoBehaviour
     [SerializeField] private World worldMgr;
     [SerializeField] private GoogleAdsMgr adsMgr;
     [SerializeField] private MainSceneUIMgr uiMgr;
+    [SerializeField] private ShopMgr shopMgr;
 
     public ModifyTerrain GetModifyTerain() => mTerrain;
     public InputManager GetInputManager() => inputMgr;
     public World GetWorldManager() => worldMgr;
     public GoogleAdsMgr GetGoogleAdsManager() => adsMgr;
     public MainSceneUIMgr GetUIManager() => uiMgr;
+    public ShopMgr GetShopMgr() => shopMgr;
 
     private void Awake()
     {
@@ -28,14 +30,15 @@ public class MainSceneMgr : MonoBehaviour
         inputMgr.Init();
         worldMgr.Init();
         adsMgr.Init();
+        shopMgr.Init();
     }
     public void AddBlock()
     {
-
+        mTerrain.AddBlock();
     }
 
     public void RemoveBlock()
     {
-
+        mTerrain.RemoveBlock();
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Lean.Touch;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class ModifyTerrain : MonoBehaviour
 {
@@ -39,8 +40,9 @@ public class ModifyTerrain : MonoBehaviour
 
     public void DestroyBlock(float range, byte block)
     {
+
         //Replaces the block directly in front of the player
-        Ray ray = Camera.main.ScreenPointToRay(Camera.main.transform.forward);
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -54,7 +56,7 @@ public class ModifyTerrain : MonoBehaviour
     public void AddBlock(float range, byte block)
     {
         //Adds the block specified directly in front of the player
-        Ray ray = Camera.main.ScreenPointToRay(dir.position - mainCam.position);
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -172,8 +174,13 @@ public class ModifyTerrain : MonoBehaviour
         textureHashCode = (byte) tType;
     }
 
-    public void OnDestroyBlock()
+    public void RemoveBlock()
     {
         DestroyBlock(1000f, (byte)textureType.air.GetHashCode());
+    }
+
+    public void AddBlock()
+    {
+        AddBlock(1000f, textureHashCode);
     }
 }
