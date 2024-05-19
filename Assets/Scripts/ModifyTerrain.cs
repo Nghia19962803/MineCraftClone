@@ -1,4 +1,5 @@
 using UnityEngine;
+using Lean.Touch;
 
 public class ModifyTerrain : MonoBehaviour
 {
@@ -12,12 +13,8 @@ public class ModifyTerrain : MonoBehaviour
 
     void Update()
     {
-        // LoadChunks(GameObject.FindGameObjectWithTag("Player").transform.position, 50, 60);
-        if (Input.GetMouseButtonDown(0))
-        {
-            DestroyBlock(1000f, (byte)textureType.air.GetHashCode());
-        }
-        else if (Input.GetMouseButtonDown(1))
+
+        if (Input.GetMouseButtonDown(1))
         {
             // AddBlock(1000f, (byte)textureType.ice.GetHashCode());
             AddBlock(1000f, textureHashCode);
@@ -170,5 +167,10 @@ public class ModifyTerrain : MonoBehaviour
     public void SetTexture(textureType tType)
     {
         textureHashCode = (byte) tType;
+    }
+
+    public void OnDestroyBlock()
+    {
+        DestroyBlock(1000f, (byte)textureType.air.GetHashCode());
     }
 }
