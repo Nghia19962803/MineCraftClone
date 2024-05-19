@@ -6,6 +6,9 @@ public class ModifyTerrain : MonoBehaviour
     public World world;
 
     byte textureHashCode;
+
+    public Transform mainCam;
+    public Transform dir;
     public void Init()
     {
         textureHashCode = 1;
@@ -37,7 +40,7 @@ public class ModifyTerrain : MonoBehaviour
     public void DestroyBlock(float range, byte block)
     {
         //Replaces the block directly in front of the player
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Camera.main.transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -51,7 +54,7 @@ public class ModifyTerrain : MonoBehaviour
     public void AddBlock(float range, byte block)
     {
         //Adds the block specified directly in front of the player
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(dir.position - mainCam.position);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
