@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviour
         Vector3 inputJoystick = MainSceneMgr.Instance.GetInputManager().moveInput;
 #endif
 
-        Vector3 dir = (horizontal * m_camera.right + vertical * m_camera.forward).normalized;
-        Vector3 m_input = new Vector3(horizontal, 0, vertical).normalized;
-        if (m_input.magnitude >= 0.1f)
+        Vector3 dir = (inputJoystick.x * m_camera.right + inputJoystick.z * m_camera.forward).normalized;
+        // Vector3 m_input = new Vector3(horizontal, 0, vertical).normalized;
+        if (dir.magnitude >= 0.1f)
         {
             controller.Move(dir * speed * Time.deltaTime);
         }
