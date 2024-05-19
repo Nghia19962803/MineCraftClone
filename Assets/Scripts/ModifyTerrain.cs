@@ -169,4 +169,8 @@ public class ModifyTerrain : MonoBehaviour
         }
     }
 
+    public void SetTexture(textureType tType)
+    {
+        textureHashCode = (byte) tType;
+    }
 }

@@ -21,6 +21,13 @@ public class InputManager : MonoBehaviour
         
     public void Init()
     {
+        
+
+        //
+    }
+
+    void AddBuildEventBtn()
+    {
         buildBtn.onClick.AddListener(() =>
         {
             MainSceneMgr.Instance.AddBlock();
@@ -32,8 +39,21 @@ public class InputManager : MonoBehaviour
         });
     }
 
-    void Update()
+    void AddChangeTextureEventBtn()
     {
-        
+        rockBtn.onClick.AddListener(() =>
+        {
+            MainSceneMgr.Instance.GetModifyTerain().SetTexture(textureType.rock);
+        });
+
+        grassBtn.onClick.AddListener(() =>
+        {
+            MainSceneMgr.Instance.GetModifyTerain().SetTexture(textureType.grass);
+        });
+
+        iceBtn.onClick.AddListener(() =>
+        {
+            MainSceneMgr.Instance.GetModifyTerain().SetTexture(textureType.ice);
+        });
     }
 }
