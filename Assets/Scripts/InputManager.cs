@@ -21,7 +21,9 @@ public class InputManager : MonoBehaviour
         
     public void Init()
     {
-        
+        AddBuildEventBtn();
+
+        AddChangeTextureEventBtn();
 
         //
     }

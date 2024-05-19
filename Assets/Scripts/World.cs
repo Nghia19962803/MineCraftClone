@@ -19,7 +19,7 @@ public class World : MonoBehaviour
     public byte[,,] worldData;	// data by 3 axis
 
 	public Chunk[,,] Chunks;
-    void Start()
+    public void Init()
     {
         worldData = new byte[worldX,worldY,worldZ];
 

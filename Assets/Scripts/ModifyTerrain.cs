@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class ModifyTerrain : MonoBehaviour
 {
-    public static ModifyTerrain instance;
     public World world;
 
     byte textureHashCode;
-    void Start()
+    public void Init()
     {
-        instance = this;
         textureHashCode = 1;
     }
 
