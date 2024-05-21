@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 inputJoystick = new Vector3 (horizontal, 0, vertical);
 #else
-        Vector3 inputJoystick = MainSceneMgr.Instance.GetInputManager().moveInput;
+        Vector3 inputJoystick = MainSceneMgr.Instance.GetUIManager().moveInput;
 #endif
 
         Vector3 dir = (inputJoystick.x * m_camera.right + inputJoystick.z * m_camera.forward).normalized;

@@ -7,11 +7,22 @@ using UnityEngine;
 public class GoogleAdsMgr : MonoBehaviour
 {
     public bool finalBuildProduct;
+
     public void Init()
     {
+        if(finalBuildProduct)
+        {
+            _adUnitId = "ca-app-pub-1505303784869815~6090212036";   // product Ads ID
+        }
+
+        bool isShowbanner = PlayerPrefs.GetInt("remoteAds") == 0 ? true : false;
         MobileAds.Initialize(initStatus =>
         {
-            LoadAd();
+            if(isShowbanner)
+            {
+                LoadAdBanner();
+            }
+
             LoadRewardedAd();
         });
 
@@ -19,12 +30,14 @@ public class GoogleAdsMgr : MonoBehaviour
     }
 
 #if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-3940256099942544/6300978111";    // test ID
+    private string _adUnitId = "ca-app-pub-3940256099942544/6300978111";    
 #elif UNITY_IPHONE
-  private string _adUnitId = "ca-app-pub-3940256099942544/2934735716";
+  private string _adUnitId = "ca-app-pub-3940256099942544/2934735716"; // test 
 #else
   private string _adUnitId = "unused";
 #endif
+
+   
 
     #region BANNER ADS
     BannerView _bannerView;
@@ -46,7 +59,7 @@ public class GoogleAdsMgr : MonoBehaviour
         _bannerView = new BannerView(_adUnitId, AdSize.Banner, AdPosition.Top);
     }
 
-    public void LoadAd()
+    public void LoadAdBanner()
     {
         // create an instance of a banner view first.
         if (_bannerView == null)
@@ -164,5 +177,11 @@ public class GoogleAdsMgr : MonoBehaviour
             Debug.LogError("Rewarded ad failed to open full screen content " + "with error : " + error);
             LoadRewardedAd();
         };
+    }
+
+    public void DisableAds()
+    {
+        DestroyBannerView();
+        PlayerPrefs.SetInt("removeAds", 1);
     }
 }

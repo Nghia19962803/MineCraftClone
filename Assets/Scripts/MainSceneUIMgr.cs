@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class MainSceneUIMgr : MonoBehaviour
 {
-    public TextMeshProUGUI coinText;
-    public GameObject confirmWatchAds;
+    [SerializeField] TextMeshProUGUI coinText;
+    [SerializeField] GameObject confirmWatchAds;
+    [SerializeField] Joystick fixJoy;
+    [SerializeField] Button buildBtn;
+    [SerializeField] Button brokeBtn;
     int amountCoin;
 
     [SerializeField] Button confirmWatchAdBtn;
@@ -17,7 +20,17 @@ public class MainSceneUIMgr : MonoBehaviour
     [SerializeField] Button AddBlock;
     [SerializeField] Button removeBlock;
 
-    void Start()
+    [Header("TEXTURE SELECT")]
+    [SerializeField] Button rockBtn;
+    [SerializeField] Button grassBtn;
+    [SerializeField] Button iceBtn;
+
+    public Vector3 moveInput
+    {
+        get { return new Vector3(fixJoy.Horizontal, 0, fixJoy.Vertical); }
+    }
+
+    public void Init()
     {
         confirmWatchAdBtn.onClick.AddListener(OnClickConfirmWatch);
         watchAdBtn.onClick.AddListener(OnClickReward);
@@ -25,6 +38,9 @@ public class MainSceneUIMgr : MonoBehaviour
 
         AddBlock.onClick.AddListener(MainSceneMgr.Instance.AddBlock);
         removeBlock.onClick.AddListener(MainSceneMgr.Instance.RemoveBlock);
+
+        AddChangeTextureEventBtn();
+        AddBuildEventBtn();
     }
 
     public void OnClickReward()
@@ -45,5 +61,36 @@ public class MainSceneUIMgr : MonoBehaviour
         coinText.text = amountCoin.ToString();
         confirmWatchAds.SetActive(false);
         Debug.Log("amountCoin : " + amountCoin);
+    }
+
+    void AddChangeTextureEventBtn()
+    {
+        rockBtn.onClick.AddListener(() =>
+        {
+            MainSceneMgr.Instance.GetModifyTerain().SetTexture(textureType.rock);
+        });
+
+        grassBtn.onClick.AddListener(() =>
+        {
+            MainSceneMgr.Instance.GetModifyTerain().SetTexture(textureType.grass);
+        });
+
+        iceBtn.onClick.AddListener(() =>
+        {
+            MainSceneMgr.Instance.GetModifyTerain().SetTexture(textureType.ice);
+        });
+    }
+
+    void AddBuildEventBtn()
+    {
+        buildBtn.onClick.AddListener(() =>
+        {
+            MainSceneMgr.Instance.AddBlock();
+        });
+
+        brokeBtn.onClick.AddListener(() =>
+        {
+            MainSceneMgr.Instance.RemoveBlock();
+        });
     }
 }

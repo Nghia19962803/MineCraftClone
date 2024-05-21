@@ -22,7 +22,7 @@ public class MainSceneMgr : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        Instance = this; 
     }
     private void Start()
     {
@@ -31,6 +31,7 @@ public class MainSceneMgr : MonoBehaviour
         worldMgr.Init();
         adsMgr.Init();
         shopMgr.Init();
+        uiMgr.Init();
     }
     public void AddBlock()
     {

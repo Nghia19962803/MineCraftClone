@@ -22,23 +22,6 @@ public class MouseLook : MonoBehaviour
     [SerializeField][Range(0.0f, 1.0f)] private float inertia;
 
 
-    void Start()
-    {
-        // Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    float mouseX = Input.GetAxis("MouseX") * mouseSensitivity * Time.deltaTime;
-    //    float mouseY = Input.GetAxis("MouseY") * mouseSensitivity * Time.deltaTime;
-
-    //    xRotation -= mouseY;
-    //    xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-    //    m_camera.localRotation = Quaternion.Euler(xRotation, 0, 0);
-    //    transform.Rotate(Vector3.up * mouseX);
-    //}
 
     private void LateUpdate()
     {
@@ -48,12 +31,24 @@ public class MouseLook : MonoBehaviour
 
         // Get the world delta of them after conversion
         var worldDelta = ScreenDepth.ConvertDelta(lastScreenPoint, screenPoint, m_camera.gameObject);
-        Vector3 aaa = new Vector3(-worldDelta.y, worldDelta.x, 0);
+        // Vector3 aaa = new Vector3(-worldDelta.y, worldDelta.x, 0);
+        Vector3 aaa = new Vector3(-worldDelta.y, 0, 0);
+        Vector3 bbb = new Vector3(0, worldDelta.x, 0);
         // Store the current position
         var oldPosition = m_camera.localEulerAngles;
 
+        if ((m_camera.localEulerAngles.x + aaa.x) < 50 || (m_camera.localEulerAngles.x + aaa.x) > 330)
+        {
+            // aaa.x = 0;
+        }
+        else
+        {
+            aaa.x = 0;
+        }
+
         // Pan the camera based on the world delta
         m_camera.localEulerAngles += aaa;
+        transform.localEulerAngles += bbb;
 
         remainingDelta += m_camera.localEulerAngles - oldPosition;
 

@@ -31,6 +31,7 @@ public class ShopMgr : MonoBehaviour
         else if (product.definition.id == removeAds)
         {
             Debug.Log("remove ads");
+            MainSceneMgr.Instance.GetGoogleAdsManager().DisableAds();
         }
     }
 
@@ -47,4 +48,6 @@ public class ShopMgr : MonoBehaviour
             go.SetActive(isShopOpen);
         }
     }
+
+
 }
